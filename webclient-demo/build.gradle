@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.3'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Boot 核心依赖
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    
+    // 数据访问层
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.5'
+    
+    // H2 数据库（用于测试）
+    runtimeOnly 'com.h2database:h2'
+    
+    // Jackson JSON 处理
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml'
+    
+    // Lombok（简化代码）
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // 测试依赖
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation 'com.github.tomakehurst:wiremock-jre8:2.35.0'
+    testImplementation 'org.mockito:mockito-core'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
+    testImplementation 'org.awaitility:awaitility:4.2.0'
+    
+    // 可选：Resilience4j（熔断、重试）
+    implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
+    implementation 'io.github.resilience4j:resilience4j-reactor:2.1.0'
+    implementation 'io.github.resilience4j:resilience4j-retry:2.1.0'
+    implementation 'io.github.resilience4j:resilience4j-circuitbreaker:2.1.0'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

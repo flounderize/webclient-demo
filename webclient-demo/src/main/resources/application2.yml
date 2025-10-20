@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: webclient-demo-gpt5
+  datasource:
+    url: jdbc:h2:mem:webclient;MODE=MYSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ''
+    driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+  jackson:
+    default-property-inclusion: non_null
+  main:
+    web-application-type: reactive
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    root: INFO
+    com.example.webclientdemo: DEBUG
+
+app:
+  webclient:
+    defaults:
+      base-url: http://localhost:8090
+      connect-timeout: 3s
+      read-timeout: 30s
+      write-timeout: 30s
+      retry:
+        enabled: true
+        max-attempts: 3
+        first-backoff: 300ms
+        max-backoff: 2s
+    services:
+      user-service:
+        base-url: http://localhost:8081
+      recommendation-service:
+        base-url: http://localhost:8082
+      content-service:
+        base-url: http://localhost:8083
+      notification-service:
+        base-url: http://localhost:8084
+      mcp-sse-service:
+        base-url: http://localhost:8085
+      mcp-stream-service:
+        base-url: http://localhost:8086
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+app:
+  webclient:
+    defaults:
+      base-url: http://localhost:0
+    services:
+      user-service:
+        base-url: http://localhost:0
+      recommendation-service:
+        base-url: http://localhost:0
+      content-service:
+        base-url: http://localhost:0
+      notification-service:
+        base-url: http://localhost:0
+      mcp-sse-service:
+        base-url: http://localhost:0
+      mcp-stream-service:
+        base-url: http://localhost:0
