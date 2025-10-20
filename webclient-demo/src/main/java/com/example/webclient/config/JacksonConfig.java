@@ -47,19 +47,21 @@ public class JacksonConfig {
         // 创建 JavaTimeModule 并配置日期时间格式
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         
-        // LocalDateTime 格式化
+        // LocalDateTime 格式化 - 支持多种格式
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
         javaTimeModule.addSerializer(LocalDateTime.class, 
-                new LocalDateTimeSerializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)));
+                new LocalDateTimeSerializer(dateTimeFormatter));
         javaTimeModule.addDeserializer(LocalDateTime.class, 
-                new LocalDateTimeDeserializer(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)));
+                new LocalDateTimeDeserializer(dateTimeFormatter));
         
         // LocalDate 格式化
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
         javaTimeModule.addSerializer(LocalDate.class, 
-                new LocalDateSerializer(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+                new LocalDateSerializer(dateFormatter));
         javaTimeModule.addDeserializer(LocalDate.class, 
-                new LocalDateDeserializer(DateTimeFormatter.ofPattern(DATE_FORMAT)));
+                new LocalDateDeserializer(dateFormatter));
 
-        return Jackson2ObjectMapperBuilder.json()
+        ObjectMapper mapper = Jackson2ObjectMapperBuilder.json()
                 .modules(javaTimeModule)
                 // 序列化配置
                 .serializationInclusion(JsonInclude.Include.NON_NULL) // 忽略 null 值
@@ -68,6 +70,12 @@ public class JacksonConfig {
                 // 反序列化配置
                 .featuresToDisable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES) // 忽略未知属性
                 .featuresToEnable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT) // 空字符串转 null
+                .featuresToDisable(DeserializationFeature.ADJUST_DATES_TO_CONTEXT_TIME_ZONE) // 不调整时区
                 .build();
+                
+        // 确保日期格式正确应用
+        mapper.registerModule(javaTimeModule);
+        
+        return mapper;
     }
 }
