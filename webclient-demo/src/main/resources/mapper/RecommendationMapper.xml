@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.webclientdemo.mapper.RecommendationMapper">
+<mapper namespace="com.example.webclient.mapper.RecommendationMapper">
 
     <!--
         示例查询：根据推荐 ID 查询记录。
     -->
-    <select id="findByRecommendationId" resultType="com.example.webclientdemo.entity.RecommendationEntity">
-        SELECT id, recommendation_id, content, received_at
+    <select id="findByRecommendationId" resultType="com.example.webclient.entity.Recommendation">
+        SELECT id, user_id, type, title, description, score, created_at
         FROM t_recommendation
-        WHERE recommendation_id = #{recommendationId}
+        WHERE id = #{id}
     </select>
 
 </mapper>

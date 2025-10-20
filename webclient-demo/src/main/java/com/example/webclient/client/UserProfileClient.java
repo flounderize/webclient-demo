@@ -34,8 +34,8 @@ public class UserProfileClient {
 
     private final WebClient webClient;
 
-    public UserProfileClient(WebClient webClient) {
-        this.webClient = webClient;
+    public UserProfileClient(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
     /**

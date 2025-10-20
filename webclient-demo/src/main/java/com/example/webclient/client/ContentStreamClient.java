@@ -33,8 +33,8 @@ public class ContentStreamClient {
 
     private final WebClient webClient;
 
-    public ContentStreamClient(WebClient webClient) {
-        this.webClient = webClient;
+    public ContentStreamClient(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
     /**

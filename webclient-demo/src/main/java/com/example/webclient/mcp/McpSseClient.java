@@ -36,8 +36,8 @@ public class McpSseClient {
     private final WebClient sseWebClient;
     private final ObjectMapper objectMapper;
 
-    public McpSseClient(WebClient sseWebClient, ObjectMapper objectMapper) {
-        this.sseWebClient = sseWebClient;
+    public McpSseClient(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+        this.sseWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
         this.objectMapper = objectMapper;
     }
 
