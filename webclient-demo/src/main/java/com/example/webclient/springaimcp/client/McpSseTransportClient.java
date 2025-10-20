@@ -101,6 +101,7 @@ public class McpSseTransportClient {
     /**
      * 等待服务器发送 endpoint 事件（握手流程）
      */
+    @SuppressWarnings("unchecked")
     private Mono<Map<String, Object>> waitForEndpoint() {
         return sseConnection
             .filter(event -> "endpoint".equals(event.event()))
@@ -108,7 +109,7 @@ public class McpSseTransportClient {
             .map(event -> {
                 try {
                     String data = event.data();
-                    return objectMapper.readValue(data, Map.class);
+                    return (Map<String, Object>) objectMapper.readValue(data, Map.class);
                 } catch (Exception e) {
                     log.error("Failed to parse endpoint event", e);
                     throw new RuntimeException("Failed to parse endpoint event", e);

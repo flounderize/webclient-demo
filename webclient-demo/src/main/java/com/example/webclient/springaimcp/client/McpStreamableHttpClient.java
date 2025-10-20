@@ -237,6 +237,18 @@ public class McpStreamableHttpClient {
     }
 
     /**
+     * 列出可用提示词
+     * 
+     * @param endpoint MCP 端点
+     * @return Mono 包装的提示词列表
+     */
+    public Mono<Object> listPrompts(String endpoint) {
+        log.info("Listing available prompts");
+        return sendAndGetFinalResult(endpoint, "prompts/list", null)
+            .map(McpMessage::getResult);
+    }
+
+    /**
      * 批量调用工具
      * 
      * @param endpoint MCP 端点
