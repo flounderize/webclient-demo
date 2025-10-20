@@ -1,5 +1,8 @@
 package com.example.webclient.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -9,8 +12,10 @@ import java.util.List;
  * @author AI Agent
  * @since 1.0.0
  */
+@TableName("t_recommendation")
 public class Recommendation {
 
+    @TableId(type = IdType.AUTO)
     private Long id;
     private Long userId;
     private String type;

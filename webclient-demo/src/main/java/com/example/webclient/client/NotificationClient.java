@@ -33,8 +33,8 @@ public class NotificationClient {
 
     private final WebClient sseWebClient;
 
-    public NotificationClient(WebClient sseWebClient) {
-        this.sseWebClient = sseWebClient;
+    public NotificationClient(WebClient.Builder webClientBuilder) {
+        this.sseWebClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
     /**

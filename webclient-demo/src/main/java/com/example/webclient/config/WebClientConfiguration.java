@@ -1,8 +1,8 @@
 package com.example.webclient.config;
 
-import com.example.webclientdemo.support.IdempotencyKeyGenerator;
-import com.example.webclientdemo.support.WebClientAuthFilter;
-import com.example.webclientdemo.support.WebClientErrorHandler;
+import com.example.webclient.support.IdempotencyKeyGenerator;
+import com.example.webclient.support.WebClientAuthFilter;
+import com.example.webclient.support.WebClientErrorHandler;
 import java.time.Duration;
 import java.util.Map;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

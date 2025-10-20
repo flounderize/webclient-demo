@@ -34,8 +34,8 @@ public class McpStreamClient {
     private final WebClient webClient;
     private final ObjectMapper objectMapper;
 
-    public McpStreamClient(WebClient webClient, ObjectMapper objectMapper) {
-        this.webClient = webClient;
+    public McpStreamClient(WebClient.Builder webClientBuilder, ObjectMapper objectMapper) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
         this.objectMapper = objectMapper;
     }
 

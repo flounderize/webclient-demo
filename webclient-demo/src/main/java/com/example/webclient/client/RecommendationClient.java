@@ -36,8 +36,8 @@ public class RecommendationClient {
 
     private final WebClient webClient;
 
-    public RecommendationClient(WebClient webClient) {
-        this.webClient = webClient;
+    public RecommendationClient(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl("http://localhost:8080").build();
     }
 
     /**
